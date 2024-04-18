@@ -14,9 +14,9 @@ public class AuthorService {
     private AuthorRepository repository;
     private PasswordEncoder passwordEncoder;
 
-    public void addAuthor(Author author){
+    public Author addAuthor(Author author){
         author.setPassword(passwordEncoder.encode(author.getPassword()));
-        repository.save(author);
+        return repository.save(author);
     }
 
     public List<Author> findAllAuthors(){
