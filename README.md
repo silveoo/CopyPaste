@@ -1,4 +1,4 @@
-<h1 align="center"> CopyPaste </h1>
+<h1 align="center"> /CopyPaste\ </h1>
 
 ## Возможности
 - Чтение всех записей
@@ -28,6 +28,6 @@ password: root
 | author/new-author| POST | Создание нового пользователя | Без авторизации |
 | paste | GET | Отображение всех записей | Без авторизации |
 | paste/add | POST | Добавить запись | AUTHOR, ADMIN |
-| paste/{id} | UPDATE | Отобразить конкретную запись по ID | AUTHOR, ADMIN |
+| paste/{id} | GET | Отобразить конкретную запись по ID | AUTHOR, ADMIN |
 | paste/delete/{id} | DELETE | Удалить запись | ADMIN |
-| paste/update | POST | Изменить запись | ADMIN (все), AUTHOR (только свои) |
+| paste/update | UPDATE | Изменить запись | ADMIN (все), AUTHOR (только свои) |
