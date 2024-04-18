@@ -48,6 +48,12 @@ public class PasteController {
         pasteService.deletePaste(id);
     }
 
+    @GetMapping("/author/{username}")
+    @PreAuthorize("hasAnyAuthority('ROLE_AUTHOR')")
+    public List<Paste> findAllByAuthor(@PathVariable String username){
+        return pasteService.findAllByAuthor(username);
+    }
+
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_AUTHOR') and #paste.author == authentication.name)")
     public ResponseEntity<Paste> updatePaste(@RequestBody Paste paste) {

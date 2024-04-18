@@ -38,6 +38,9 @@ public class PasteService {
         return repository.save(paste);
     }
 
+    public List<Paste> findAllByAuthor(String username){
+        return repository.findAllByAuthor(username);
+    }
 
     public void addPaste(Paste paste){
         repository.save(paste);
