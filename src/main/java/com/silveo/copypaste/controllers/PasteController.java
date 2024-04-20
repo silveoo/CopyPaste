@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("api/v1/paste")
@@ -42,10 +43,23 @@ public class PasteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public void deletePaste(@PathVariable Long id){
-        logger.info("Paste with ID: {} was deleted", id);
-        pasteService.deletePaste(id);
+    public ResponseEntity<String> deletePaste(@PathVariable Long id){
+        Paste paste = pasteService.getPasteById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentLoggedIn = authentication.getName();
+
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        if((Objects.equals(paste.getAuthor(), currentLoggedIn)) || isAdmin){
+            logger.info("Paste with ID: {} was deleted by {}", id, currentLoggedIn);
+            pasteService.deletePaste(id);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        else{
+            logger.info("There was an attempt to delete a paste with ID: {} by {}, but there were not enought permissions", id, currentLoggedIn);
+            return new ResponseEntity<>("No permission", HttpStatus.FORBIDDEN);
+        }
     }
 
     @GetMapping("/author/{username}")
