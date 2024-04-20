@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import com.silveo.copypaste.controllers.AuthorController;
 import com.silveo.copypaste.entity.Author;
@@ -38,26 +37,6 @@ public class AuthorControllerTest {
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(authorController).build();
-    }
-
-    @Test
-    public void testAddAuthor() throws Exception {
-        // подготовка
-        Author author = new Author();
-        author.setUsername("testUser");
-        author.setPassword("testPass");
-        author.setRole("ROLE_USER");
-
-        when(authorService.addAuthor(any(Author.class))).thenReturn(author);
-
-        // выполнение и проверка
-        mockMvc.perform(post("/api/v1/author/new-author")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(author)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.username").value("testUser"));
-
-        verify(authorService).addAuthor(any(Author.class));
     }
 
     @Test

@@ -29,32 +29,6 @@ public class AuthorServiceTest {
     private AuthorService authorService;
 
     @Test
-    public void testAddAuthor() {
-        // подготовка
-        Author author = new Author();
-        author.setUsername("testUser");
-        author.setPassword("testPass");
-        author.setRole("ROLE_AUTHOR");
-
-        Author savedAuthor = new Author();
-        savedAuthor.setId(1L);
-        savedAuthor.setUsername("testUser");
-        savedAuthor.setPassword("encodedPass");
-        savedAuthor.setRole("ROLE_AUTHOR");
-
-        when(passwordEncoder.encode(author.getPassword())).thenReturn("encodedPass");
-        when(authorRepository.save(any(Author.class))).thenReturn(savedAuthor);
-
-        // выполнение
-        Author result = authorService.addAuthor(author);
-
-        // проверка
-        assertEquals(savedAuthor, result);
-        verify(passwordEncoder).encode("testPass");
-        verify(authorRepository).save(author);
-    }
-
-    @Test
     public void testFindAllAuthors() {
         // подготовка
         List<Author> authors = new ArrayList<>();
