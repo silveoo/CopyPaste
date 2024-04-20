@@ -26,6 +26,7 @@ password: root
 | --- | --- | --- | --- |
 | author | GET | Список всех пользователей | ADMIN |
 | author/new-author| POST | Создание нового пользователя | Без авторизации |
+| author/{username}| GET | Найти все записи автора | AUTHOR, ADMIN |
 | paste | GET | Отображение всех записей | Без авторизации |
 | paste/add | POST | Добавить запись | AUTHOR, ADMIN |
 | paste/{id} | GET | Отобразить конкретную запись по ID | AUTHOR, ADMIN |
