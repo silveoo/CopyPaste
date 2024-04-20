@@ -3,6 +3,7 @@ package com.silveo.copypaste.services;
 import com.silveo.copypaste.entity.Author;
 import com.silveo.copypaste.repositories.AuthorRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,15 @@ public class AuthorService {
     public List<Author> findAllAuthors(){
         return repository.findAll();
     }
-    
+
+    public boolean confirmToken(String token){
+        Author author = repository.findByConfirmationToken(token);
+        if(author != null){
+            author.setEmailConfirmed(true);
+            author.setConfirmationToken(null);
+            repository.save(author);
+            return true;
+        }
+        return false;
+    }
 }
