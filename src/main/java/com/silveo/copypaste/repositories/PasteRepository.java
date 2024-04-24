@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface PasteRepository extends JpaRepository<Paste, Long> {
-    public Paste findPasteById(Long id);
+    Paste findPasteById(Long id);
 
-    public List<Paste> findAllByAuthor(String username);
+    List<Paste> findAllByAuthor(String username);
 }
