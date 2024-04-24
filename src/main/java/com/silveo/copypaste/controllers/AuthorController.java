@@ -1,7 +1,6 @@
 package com.silveo.copypaste.controllers;
 
 import com.silveo.copypaste.entity.Author;
-import com.silveo.copypaste.services.AuthorDetailsService;
 import com.silveo.copypaste.services.AuthorService;
 import com.silveo.copypaste.services.EmailService;
 import lombok.AllArgsConstructor;

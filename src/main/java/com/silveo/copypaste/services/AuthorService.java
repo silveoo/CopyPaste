@@ -3,7 +3,6 @@ package com.silveo.copypaste.services;
 import com.silveo.copypaste.entity.Author;
 import com.silveo.copypaste.repositories.AuthorRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

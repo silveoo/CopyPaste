@@ -3,7 +3,6 @@ package com.silveo.copypaste.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.Authentication;
-import org.springframework.cglib.core.Local;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -18,7 +17,6 @@ public class Paste {
     private String text;
     private String author;
     private LocalDate creationDate;
-
     @PrePersist
     public void prePersist() {
         this.creationDate = LocalDate.now(); // Устанавливаем сегодняшнюю дату
