@@ -13,7 +13,7 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Подтверждение электронной почты");
-        message.setText("Для подтверждения электронной почты перейдите по ссылке: localhost:8080/api/v1/author/confirm/" + token);
+        message.setText("Для подтверждения электронной почты перейдите по ссылке: http://localhost:8080/api/v1/author/confirm/" + token);
         javaMailSender.send(message);
     }
 }

@@ -7,15 +7,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class AuthorService {
     private AuthorRepository repository;
     private PasswordEncoder passwordEncoder;
+    private EmailService emailService;
 
     public Author addAuthor(Author author){
         author.setPassword(passwordEncoder.encode(author.getPassword()));
+        String token = UUID.randomUUID().toString();
+        author.setConfirmationToken(token);
+        author.setEmailConfirmed(false);
+        emailService.sendConfirmationEmail(author.getEmail(), token);
         return repository.save(author);
     }
 
