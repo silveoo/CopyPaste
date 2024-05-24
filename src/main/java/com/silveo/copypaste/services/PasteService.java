@@ -2,6 +2,7 @@ package com.silveo.copypaste.services;
 
 import com.silveo.copypaste.entity.Paste;
 import com.silveo.copypaste.repositories.PasteRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,16 @@ public class PasteService {
         return repository.findAll();
     }
 
+    @Transactional
     public Paste getPasteById(Long id){
-        return repository.findPasteById(id);
+        Paste paste = repository.findPasteById(id);
+        if(paste != null) {
+            if(paste.getViews() == null)
+                paste.setViews(0L);
+            paste.setViews(paste.getViews() + 1);
+            repository.save(paste);
+        }
+        return paste;
     }
 
     public void deletePaste(Long id){

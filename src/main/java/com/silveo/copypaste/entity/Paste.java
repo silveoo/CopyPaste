@@ -14,15 +14,17 @@ public class Paste {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "TEXT")
     private String text;
     private String author;
     private LocalDate creationDate;
+    private Long views = 0L;
     @PrePersist
     public void prePersist() {
-        this.creationDate = LocalDate.now(); // Устанавливаем сегодняшнюю дату
+        this.creationDate = LocalDate.now();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-            this.author = auth.getName(); // Устанавливаем имя текущего пользователя
+            this.author = auth.getName();
         }
     }
 }
