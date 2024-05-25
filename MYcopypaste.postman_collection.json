@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "3be67f1d-fdfa-4db5-8d50-5b85d375f07c",
+		"name": "MYcopypaste",
+		"description": "Testing CRUD CopyPaste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33449540"
+	},
+	"item": [
+		{
+			"name": "Show all pastes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/paste",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"paste"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login as volkovmax",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login?username=volkovmax&password=volkovmax",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "volkovmax"
+						},
+						{
+							"key": "password",
+							"value": "volkovmax"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login as Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login?username=admin&password=admin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add paste",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/paste/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"paste",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add author (use proper email)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"alex\",\r\n    \"email\": \"gutotyb1geh2@10mail.xyz\",\r\n    \"password\": \"alex\",\r\n    \"role\": \"ROLE_AUTHOR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/author/new-author",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"author",
+						"new-author"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update paste",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 10,\r\n    \"text\": \"Я федя федя федя\",\r\n    \"author\": \"fedya\",\r\n    \"creationDate\": \"2024-04-20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/paste/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"paste",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

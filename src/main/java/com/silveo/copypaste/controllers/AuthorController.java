@@ -19,6 +19,7 @@ public class AuthorController {
     private final AuthorService authorService;
     private static final Logger logger = LoggerFactory.getLogger(AuthorController.class);
 
+    //adds author new author (without auth)
     @PostMapping("/new-author")
     public ResponseEntity<Author> addAuthor(@RequestBody Author author){
         Author savedAuthor = authorService.addAuthor(author);
@@ -26,6 +27,7 @@ public class AuthorController {
         return new ResponseEntity<>(savedAuthor, HttpStatus.CREATED);
     }
 
+    //confirms token - email confirmation
     @GetMapping("/confirm/{token}")
     public ResponseEntity<String> confirmRegistration(@PathVariable String token){
         boolean isConfirmed = authorService.confirmToken(token);
@@ -38,6 +40,7 @@ public class AuthorController {
         }
     }
 
+    //all authors list (admin only)
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public List<Author> findAllAuthors(){
