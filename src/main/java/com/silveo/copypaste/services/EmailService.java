@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class EmailService {
     private JavaMailSender javaMailSender;
+
+    //forms a unique link with an uuid token generated in authorService, sending it by email
     public void sendConfirmationEmail(String email, String token){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);

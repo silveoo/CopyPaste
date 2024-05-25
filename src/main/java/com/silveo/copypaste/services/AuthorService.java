@@ -16,6 +16,7 @@ public class AuthorService {
     private PasswordEncoder passwordEncoder;
     private EmailService emailService;
 
+    //adds author, makes its token as a random uuid and setting account as disabled
     public Author addAuthor(Author author){
         author.setPassword(passwordEncoder.encode(author.getPassword()));
         String token = UUID.randomUUID().toString();
@@ -29,6 +30,7 @@ public class AuthorService {
         return repository.findAll();
     }
 
+    //confirming token sets account to enabled
     public boolean confirmToken(String token){
         Author author = repository.findByConfirmationToken(token);
         if(author != null){

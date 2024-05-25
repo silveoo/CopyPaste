@@ -23,6 +23,7 @@ public class PasteController {
     private final PasteService pasteService;
     private static final Logger logger = LoggerFactory.getLogger(PasteController.class);
 
+    //adds new paste, req to be authed
     @PostMapping("/add")
     @PreAuthorize("hasAnyAuthority('ROLE_AUTHOR')")
     public String addPaste(@RequestBody Paste paste){
@@ -31,17 +32,20 @@ public class PasteController {
         return "Paste saved! Its URL: localhost:8080/api/v1/paste/" + paste.getId();
     }
 
+    //finds list of all pastes, without auth
     @GetMapping("")
     public List<Paste> findAllPastes(){
         return pasteService.findAll();
     }
 
+    //searching paste by its id with comments(comments realized in service), req to be authed
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_AUTHOR')")
     public Paste findPasteById(@PathVariable Long id){
         return pasteService.getPasteById(id);
     }
 
+    //removing paste, only admin and paste's author can
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePaste(@PathVariable Long id){
         Paste paste = pasteService.getPasteById(id);
@@ -62,12 +66,14 @@ public class PasteController {
         }
     }
 
+    //all pastes made by author
     @GetMapping("/author/{username}")
     @PreAuthorize("hasAnyAuthority('ROLE_AUTHOR')")
     public List<Paste> findAllByAuthor(@PathVariable String username){
         return pasteService.findAllByAuthor(username);
     }
 
+    //updating paste, only admin and paste's author can
     @PutMapping("/update")
     @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_AUTHOR') and #paste.author == authentication.name)")
     public ResponseEntity<Paste> updatePaste(@RequestBody Paste paste) {
