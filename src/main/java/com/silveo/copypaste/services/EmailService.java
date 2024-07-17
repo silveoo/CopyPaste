@@ -19,11 +19,12 @@ public class EmailService {
         javaMailSender.send(message);
     }
 
+    //sends an email to pastes author
     public void sendNewCommentEmail(String email, String username, Long pasteId){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("CopyPaste - Новый комментарий к вашей записи!");
-        message.setText("Пользователь " + username + " оставил новый комментарий под вашей записью. \n" +
+        message.setText("Пользователь " + username + " оставил(а) новый комментарий под вашей записью. \n" +
                         "Перейдите по ссылке, чтобы посмотреть: http://localhost:8080/api/v1/paste/" + pasteId);
         javaMailSender.send(message);
     }
