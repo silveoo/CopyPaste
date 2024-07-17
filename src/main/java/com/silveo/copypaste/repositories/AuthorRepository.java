@@ -11,4 +11,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     Optional<Author> findByUsername(String username);
 
     Author findByConfirmationToken(String token);
+
+    Author findAuthorByUsername(String username);
 }

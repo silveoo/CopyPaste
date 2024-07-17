@@ -14,8 +14,17 @@ public class EmailService {
     public void sendConfirmationEmail(String email, String token){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
-        message.setSubject("Подтверждение электронной почты");
+        message.setSubject("CopyPaste: Подтверждение электронной почты");
         message.setText("Для подтверждения электронной почты перейдите по ссылке: http://localhost:8080/api/v1/author/confirm/" + token);
+        javaMailSender.send(message);
+    }
+
+    public void sendNewCommentEmail(String email, String username, Long pasteId){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("CopyPaste - Новый комментарий к вашей записи!");
+        message.setText("Пользователь " + username + " оставил новый комментарий под вашей записью. \n" +
+                        "Перейдите по ссылке, чтобы посмотреть: http://localhost:8080/api/v1/paste/" + pasteId);
         javaMailSender.send(message);
     }
 }

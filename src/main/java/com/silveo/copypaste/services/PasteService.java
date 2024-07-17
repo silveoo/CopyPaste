@@ -1,23 +1,30 @@
 package com.silveo.copypaste.services;
 
+import com.silveo.copypaste.entity.Author;
 import com.silveo.copypaste.entity.Comment;
 import com.silveo.copypaste.entity.Paste;
+import com.silveo.copypaste.repositories.AuthorRepository;
 import com.silveo.copypaste.repositories.PasteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @Service
 @Primary
 public class PasteService {
     private final PasteRepository repository;
+    private final AuthorRepository authorRepository;
     private final CommentService commentService;
+    private final EmailService emailService;
 
     //finding all pastes
     public List<Paste> findAll(){
@@ -48,6 +55,15 @@ public class PasteService {
         commentService.addComment(comment); // saving to db
         paste.getComments().add(comment); // saving to colletion
         repository.save(paste); // saving
+
+        //email sending to pastes author
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //check if the pastes author is comments author
+        if(!Objects.equals(authentication.getName(), paste.getAuthor())) {
+            Author author = authorRepository.findAuthorByUsername(paste.getAuthor());
+            String username = authentication.getName();
+            emailService.sendNewCommentEmail(author.getEmail(), username, pasteId);
+        }
     }
 
     public void deletePaste(Long id){
