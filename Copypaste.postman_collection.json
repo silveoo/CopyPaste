@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "3be67f1d-fdfa-4db5-8d50-5b85d375f07c",
-		"name": "MYcopypaste",
+		"_postman_id": "41f3ccec-acc1-4edf-857f-038b9c8daaf4",
+		"name": "MYcopypaste Copy",
 		"description": "Testing CRUD CopyPaste",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33449540"
@@ -84,7 +84,7 @@
 			"response": []
 		},
 		{
-			"name": "Add paste",
+			"name": "Add paste (Body)",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -114,7 +114,7 @@
 			"response": []
 		},
 		{
-			"name": "Add author (use proper email)",
+			"name": "Add author (Body, use proper email)",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -144,7 +144,7 @@
 			"response": []
 		},
 		{
-			"name": "Update paste",
+			"name": "Update paste (Body)",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -168,6 +168,37 @@
 						"v1",
 						"paste",
 						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Comment (Body)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"how are you?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/comments/add/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"comments",
+						"add",
+						"2"
 					]
 				}
 			},
