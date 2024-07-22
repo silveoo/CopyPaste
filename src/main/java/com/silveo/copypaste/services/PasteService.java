@@ -55,7 +55,7 @@ public class PasteService {
         commentService.addComment(comment); // saving to db
         paste.getComments().add(comment); // saving to colletion
 
-        paste.setCommentCount((long) paste.getComments().size());
+        paste.setCommentCount((long) paste.getComments().size()); //comments counting
         repository.save(paste); // saving
 
         //email sending to pastes author
