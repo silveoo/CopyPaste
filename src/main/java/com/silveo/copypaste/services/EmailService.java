@@ -28,4 +28,13 @@ public class EmailService {
                         "Перейдите по ссылке, чтобы посмотреть: http://localhost:8080/api/v1/paste/" + pasteId);
         javaMailSender.send(message);
     }
+
+    public void sendDeleteEmail(String email, String adminName, Long pasteId){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Copypaste - Ваша запись была удалена!");
+        message.setText("Администратор " + adminName + " удалил(а) вашу запись http://localhost:8080/api/v1/paste/" + pasteId + "\n" +
+                        "Если вы считаете, что вы не нарушали никаких правил - пожалуйста, обратитесь в тех. поддержку");
+        javaMailSender.send(message);
+    }
 }

@@ -66,8 +66,17 @@ public class PasteService {
         }
     }
 
+    //deleting paste + sending an email
     public void deletePaste(Long id){
+        Paste paste = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Paste not found"));
         repository.deleteById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //check if the pastes author is comments author
+        if(!Objects.equals(authentication.getName(), paste.getAuthor())) {
+            String adminName = authentication.getName();
+            Author author = authorRepository.findAuthorByUsername(paste.getAuthor());
+            emailService.sendDeleteEmail(author.getEmail(), adminName, id);
+        }
     }
 
     public Paste updatePaste(Paste paste){
