@@ -22,6 +22,8 @@ public class Paste {
     private String author;
     private LocalDate creationDate;
     private Long views = 0L;
+    private Long commentCount = 0L;
+
     //comment list
     @OneToMany(mappedBy = "paste", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference //removes duplicates
