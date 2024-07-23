@@ -4,7 +4,6 @@ services:
   db:
     image: postgres:13
     environment:
-      env_file: ".env"
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_LOGIN}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -35,5 +34,3 @@ services:
 
 volumes:
   db-data:
-
-

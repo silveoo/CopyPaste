@@ -1,10 +1,24 @@
-FROM openjdk:17-jdk-slim
+# Указываем базовый образ с Java 17
+FROM maven:3.9.8-amazoncorretto-17-debian AS build
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-COPY target/CopyPaste-0.0.1-SNAPSHOT.jar app.jar
+# Копируем pom.xml и зависимости в контейнер
+COPY pom.xml .
+COPY src ./src
 
-ENV JAVA_OPTS=""
+# Скачиваем все зависимости и компилируем проект
+RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# Указываем базовый образ для финального контейнера
+FROM openjdk:17-slim
 
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем скомпилированный jar файл из этапа сборки
+COPY --from=build /app/target/*.jar ./app.jar
+
+# Указываем команду для запуска приложения
+CMD ["java", "-jar", "app.jar"]
