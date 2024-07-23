@@ -53,7 +53,7 @@ public class PasteService {
         Paste paste = repository.findById(pasteId).orElseThrow(() -> new EntityNotFoundException("Paste not found"));
         comment.setPaste(paste);
         commentService.addComment(comment); // saving to db
-        paste.getComments().add(comment); // saving to colletion
+        paste.getComments().add(comment); // saving to collection
 
         paste.setCommentCount((long) paste.getComments().size()); //comments counting
         repository.save(paste); // saving

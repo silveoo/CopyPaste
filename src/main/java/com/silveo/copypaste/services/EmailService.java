@@ -29,6 +29,7 @@ public class EmailService {
         javaMailSender.send(message);
     }
 
+    //sends an email to pastes author
     public void sendDeleteEmail(String email, String adminName, Long pasteId){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
