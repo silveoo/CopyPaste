@@ -8,7 +8,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,9 +25,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/author/new-author", "api/v1/author/confirm/**", "api/v1/paste").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers(
+                                "api/v1/author/new-author",
+                                "api/v1/author/confirm/**",
+                                "api/v1/paste",
+                                "api/v1/auth/check",
+                                "/api/v1/auth/logout",
+                                "/login",
+                                "/error").permitAll()
                         .requestMatchers("api/v1/**").authenticated())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/api/v1/paste", true)
+                )
                 .build();
     }
 
