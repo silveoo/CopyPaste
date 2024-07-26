@@ -36,18 +36,20 @@ docker-compose up
 ## Методы
 Все методы начинаются с localhost:8080/api/v1/
 
-| URL                     | Метод | Назначение | Доступ |
-|-------------------------| --- | --- | --- |
-| author                  | GET | Список всех пользователей | ADMIN |
-| author/new-author       | POST | Создание нового пользователя | Без авторизации |
-| author/confirm/{token}  | GET | Подтверждение токена эл. почты | Без авторизации |
-| paste                   | GET | Отображение всех записей | Без авторизации |
-| paste/add               | POST | Добавить запись | AUTHOR, ADMIN |
-| paste/{id}              | GET | Отобразить конкретную запись по ID | AUTHOR, ADMIN |
-| paste/author/{username} | GET | Найти все записи автора | AUTHOR, ADMIN |
-| paste/delete/{id}       | DELETE | Удалить запись | ADMIN (все), AUTHOR (только свои) |
-| paste/update            | UPDATE | Изменить запись | ADMIN (все), AUTHOR (только свои) |
-| comments/add/{pasteId}  | POST | Добавить комментарий к записи | AUTHOR, ADMIN |
+| URL                     | Метод  | Назначение                         | Доступ                            |
+|-------------------------|--------|------------------------------------|-----------------------------------|
+| author                  | GET    | Список всех пользователей          | ADMIN                             |
+| author/new-author       | POST   | Создание нового пользователя       | Без авторизации                   |
+| author/confirm/{token}  | GET    | Подтверждение токена эл. почты     | Без авторизации                   |
+| paste                   | GET    | Отображение всех записей           | Без авторизации                   |
+| paste/add               | POST   | Добавить запись                    | AUTHOR, ADMIN                     |
+| paste/{id}              | GET    | Отобразить конкретную запись по ID | AUTHOR, ADMIN                     |
+| paste/author/{username} | GET    | Найти все записи автора            | AUTHOR, ADMIN                     |
+| paste/delete/{id}       | DELETE | Удалить запись                     | ADMIN (все), AUTHOR (только свои) |
+| paste/update            | UPDATE | Изменить запись                    | ADMIN (все), AUTHOR (только свои) |
+| comments/add/{pasteId}  | POST   | Добавить комментарий к записи      | AUTHOR, ADMIN                     |
+| auth/logout             | POST   | Выйти из профиля                   | Без авторизации                   |
+| auth/check              | GET    | Проверить аутентификацию           | Без авторизации                   |
 
 Для удобства в файле проекта есть JSON-файл (.postman_collection.json), в котором записаны основные методы работы с Copypaste. 
 Откройте его в Postman, чтобы не писать методы вручную.
