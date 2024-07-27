@@ -3,6 +3,8 @@ package com.silveo.copypaste.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 public class Author {
@@ -23,4 +25,12 @@ public class Author {
     private String password;
 
     private String role;
+
+    private LocalDate registrationDate;
+
+    //sets author.registrationDate to now
+    @PrePersist
+    public void prePersist() {
+        this.registrationDate = LocalDate.now();
+    }
 }

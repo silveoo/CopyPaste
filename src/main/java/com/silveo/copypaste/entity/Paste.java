@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class Paste {
     @Column(columnDefinition = "TEXT")
     private String text;
     private String author;
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
     private Long views = 0L;
     private Long commentCount = 0L;
 
@@ -29,10 +29,10 @@ public class Paste {
     @JsonManagedReference //removes duplicates
     private List<Comment> comments = new ArrayList<>();
 
-    //sets author to currently logged author and date to now
+    //sets paste.author to currently logged author and date to now
     @PrePersist
     public void prePersist() {
-        this.creationDate = LocalDate.now();
+        this.creationDate = LocalDateTime.now();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
             this.author = auth.getName();

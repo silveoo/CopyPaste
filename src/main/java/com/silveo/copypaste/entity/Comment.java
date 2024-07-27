@@ -1,14 +1,13 @@
 package com.silveo.copypaste.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,17 +19,17 @@ public class Comment {
 
     @Column(columnDefinition = "TEXT")
     private String content;
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paste_id")
     @JsonBackReference //removes duplicates
     private Paste paste;
 
-    //sets author to currently logged author and date to now
+    //sets comment.author to currently logged author and date to now
     @PrePersist
     public void prePersist() {
-        this.creationDate = LocalDate.now();
+        this.creationDate = LocalDateTime.now();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
             this.author = auth.getName();

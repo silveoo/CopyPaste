@@ -19,6 +19,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
+    //logout
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -30,6 +31,7 @@ public class AuthController {
         }
     }
 
+    //"authenticated": "true" / "authenticated": "false"
     @GetMapping("/check")
     public ResponseEntity<Map<String, Boolean>> isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

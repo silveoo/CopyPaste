@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/api/v1/paste", true)
+                        .defaultSuccessUrl("/api/v1/author/check", true)
                 )
                 .build();
     }
