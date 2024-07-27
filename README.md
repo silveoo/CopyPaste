@@ -41,6 +41,7 @@ docker-compose up
 | author                  | GET    | Список всех пользователей          | ADMIN                             |
 | author/new-author       | POST   | Создание нового пользователя       | Без авторизации                   |
 | author/confirm/{token}  | GET    | Подтверждение токена эл. почты     | Без авторизации                   |
+| author/check            | GET    | Никнейм и электронная почта автора | AUTHOR, ADMIN                     |
 | paste                   | GET    | Отображение всех записей           | Без авторизации                   |
 | paste/add               | POST   | Добавить запись                    | AUTHOR, ADMIN                     |
 | paste/{id}              | GET    | Отобразить конкретную запись по ID | AUTHOR, ADMIN                     |
