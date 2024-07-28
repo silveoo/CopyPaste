@@ -45,6 +45,7 @@ public class AuthorController {
         }
     }
 
+    //username and email
     @GetMapping("/check")
     @PreAuthorize("hasAnyAuthority('ROLE_AUTHOR', 'ROLE_ADMIN')")
     public ResponseEntity<AuthorInfoDTO> getAuthorInfo(){
